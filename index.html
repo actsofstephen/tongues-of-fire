@@ -2,214 +2,159 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tongues of Fire: Christian Devotional App</title>
-    <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Space+Mono&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Space Mono', monospace;
-            background-image: url('C7750949-F102-4230-A371-6A566FB7BC4A.png');
-            background-size: cover;
-            background-position: center center;
-            color: #333;
-            min-height: 100vh;
-            margin: 0;
-            overflow-x: hidden;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tongues of Fire</title>
+  <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Space+Mono&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Space Mono', monospace;
+      background-image: url('1ECDBEF6-9647-454A-8A1D-BAE2B0A97C10.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #000;
+    }
 
-        .dropdown-btn {
-            background-color: #8b5e34;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            cursor: pointer;
-            border-radius: 4px;
-            position: absolute;
-            left: 20px;
-            top: 60px;
-            z-index: 10;
-        }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 30px;
+      flex-wrap: wrap;
+    }
 
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #fff;
-            min-width: 250px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            border-radius: 5px;
-            padding: 5px 0;
-        }
+    .title {
+      font-family: 'Parisienne', cursive;
+      font-size: 3rem;
+      color: #fff;
+      text-shadow: 2px 2px 6px #8b5e34;
+    }
 
-        .dropdown-content a {
-            color: #333;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
+    .scroll-btn {
+      background-color: #8b5e34;
+      border: none;
+      border-radius: 50px;
+      padding: 10px 20px;
+      color: white;
+      font-size: 1rem;
+      font-family: 'Space Mono', monospace;
+      cursor: pointer;
+    }
 
-        .dropdown-content a:hover {
-            background-color: rgba(0,0,0,0.05);
-        }
+    .dropdown {
+      position: relative;
+    }
 
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: white;
+      border-radius: 5px;
+      min-width: 250px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+      top: 45px;
+    }
 
-        .verse-text {
-            font-family: 'Parisienne', cursive;
-            line-height: 1.6;
-            font-size: 2rem;
-        }
+    .dropdown-content a {
+      padding: 12px 16px;
+      display: block;
+      color: black;
+      text-decoration: none;
+      font-family: 'Space Mono', monospace;
+    }
 
-        .section-container {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            scroll-snap-align: start;
-        }
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
 
-        .scroll-container {
-            scroll-snap-type: y mandatory;
-            overflow-y: scroll;
-            height: 100vh;
-        }
+    .notebook-paper {
+      background-color: rgba(255, 255, 255, 0.9);
+      background-image: linear-gradient(to bottom, #dcdcdc 1px, transparent 1px);
+      background-size: 100% 24px;
+      padding: 30px;
+      margin: 40px auto;
+      width: 90%;
+      max-width: 800px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      position: relative;
+      font-family: 'Parisienne', cursive;
+      font-size: 2rem;
+    }
 
-        .scroll-btn {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #8b5e34;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 10;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s;
-        }
-
-        .scroll-btn:hover {
-            background-color: #d4a357;
-            transform: translateX(-50%) translateY(-5px);
-        }
-
-        .scroll-icon {
-            border: solid white;
-            border-width: 0 3px 3px 0;
-            display: inline-block;
-            padding: 5px;
-            transform: rotate(45deg);
-        }
-    </style>
+    .tool-results {
+      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 20px;
+      margin-top: 20px;
+      font-family: 'Space Mono', monospace;
+      border-left: 5px solid #8b5e34;
+    }
+  </style>
 </head>
 <body>
-    <div class="container mx-auto px-4 py-8 max-w-4xl">
-        <header class="flex justify-between items-center mb-8">
-            <h1 class="text-3xl font-bold text-white">Tongues of Fire</h1>
-            <button class="dropdown-btn">Speak, Lord <span class="scroll-icon"></span></button>
-            <div class="dropdown-content">
-                <a href="#" id="random-chapter-link">Random Chapter Generator</a>
-                <a href="#" id="random-book-link">Random Book Generator</a>
-                <a href="#" id="daily-reading-link">Daily Reading Plan</a>
-                <a href="#" id="bride-ready-link">Bride-Ready End Time Plan</a>
-            </div>
-        </header>
+  <header>
+    <div class="title">Tongues of Fire</div>
+    <button class="scroll-btn" onclick="refreshVerses()">Speak, Lord</button>
 
-        <main class="scroll-container">
-            <!-- Echoes from the Throne -->
-            <section class="section-container" id="echoes-section">
-                <h2 class="verse-text">Today's Verse</h2>
-                <div id="verse-content" class="verse-text"></div>
-            </section>
-
-            <!-- Thus Says the LORD: Word from OT -->
-            <section class="section-container" id="ot-section">
-                <h2 class="verse-text">Thus Says the LORD: †Word from OT</h2>
-                <div id="ot-verse" class="verse-text"></div>
-            </section>
-
-            <!-- From the Upper Room: Word from NT -->
-            <section class="section-container" id="nt-section">
-                <h2 class="verse-text">From the Upper Room: †Word from NT</h2>
-                <div id="nt-verse" class="verse-text"></div>
-            </section>
-        </main>
-
-        <button class="scroll-btn" onclick="scrollToSection()">Scroll Down</button>
+    <div class="dropdown">
+      <button class="scroll-btn">Tools</button>
+      <div class="dropdown-content">
+        <a href="#tool-random">Random Verse</a>
+        <a href="#tool-chapter">Random Chapter Generator</a>
+        <a href="#tool-book">Random Book Generator</a>
+        <a href="#tool-daily">Daily Reading Plan</a>
+        <a href="#tool-bride">Bride-Ready End Time Plan</a>
+      </div>
     </div>
+  </header>
 
-    <script>
-        // Helper functions for each tool
-        function getRandomVerse() {
-            return {
-                reference: 'Isaiah 9:6',
-                text: '“For to us a child is born, to us a son is given; and the government will be on his shoulders.”'
-            };
-        }
+  <section class="notebook-paper" id="echoes">
+    <strong>Echoes from the Throne</strong><br/>
+    <span id="verse-main"></span>
+  </section>
 
-        function getRandomOldTestamentVerse() {
-            return {
-                reference: 'Genesis 1:1',
-                text: '“In the beginning, God created the heavens and the earth.”'
-            };
-        }
+  <section class="notebook-paper" id="ot-word">
+    <strong>Thus Says the LORD: †Word from OT</strong><br/>
+    <span id="verse-ot"></span>
+  </section>
 
-        function getRandomNewTestamentVerse() {
-            return {
-                reference: 'John 3:16',
-                text: '“For God so loved the world that he gave his only begotten Son, that whoever believes in him should not perish but have eternal life.”'
-            };
-        }
+  <section class="notebook-paper" id="nt-word">
+    <strong>From the Upper Room: †Word from NT</strong><br/>
+    <span id="verse-nt"></span>
+  </section>
 
-        function updateVerseContent() {
-            const verse = getRandomVerse();
-            document.getElementById('verse-content').innerHTML = `${verse.text} - <strong>${verse.reference}</strong>`;
-        }
+  <section id="tool-results" class="tool-results">
+    <h3>Tool Results:</h3>
+    <div id="tool-random"><strong>Random Verse:</strong> Isaiah 9:6 – “For to us a child is born, to us a son is given; and the government will be on his shoulders.”</div><br/>
+    <div id="tool-chapter"><strong>Random Chapter Generator:</strong> Hebrews Chapter 105 (simulated)</div><br/>
+    <div id="tool-book"><strong>Random Book Generator:</strong> Ecclesiastes (random selection)</div><br/>
+    <div id="tool-daily"><strong>Daily Reading Plan:</strong> Custom daily reading plans carefully handpicked</div><br/>
+    <div id="tool-bride"><strong>Bride-Ready End Time Reading Plan:</strong> Custom bride-ready reading plans for verses submitted</div>
+  </section>
 
-        function updateOldTestamentVerse() {
-            const verse = getRandomOldTestamentVerse();
-            document.getElementById('ot-verse').innerHTML = `${verse.text} - <strong>${verse.reference}</strong>`;
-        }
+  <script>
+    function refreshVerses() {
+      const allVerses = [
+        { text: '“For to us a child is born, to us a son is given; and the government will be on his shoulders.”', ref: 'Isaiah 9:6' },
+        { text: '“In the beginning God created the heavens and the earth.”', ref: 'Genesis 1:1' },
+        { text: '“For God so loved the world that He gave His only begotten Son...”', ref: 'John 3:16' }
+      ];
 
-        function updateNewTestamentVerse() {
-            const verse = getRandomNewTestamentVerse();
-            document.getElementById('nt-verse').innerHTML = `${verse.text} - <strong>${verse.reference}</strong>`;
-        }
+      const otVerses = allVerses.filter(v => v.ref.includes('Genesis') || v.ref.includes('Isaiah'));
+      const ntVerses = allVerses.filter(v => v.ref.includes('John'));
 
-        // Event Listeners for dropdown tools
-        document.getElementById('random-chapter-link').addEventListener('click', function() {
-            alert('Random Chapter Generator is under construction!');
-        });
+      const rand = arr => arr[Math.floor(Math.random() * arr.length)];
 
-        document.getElementById('random-book-link').addEventListener('click', function() {
-            alert('Random Book Generator is under construction!');
-        });
+      document.getElementById('verse-main').innerText = rand(allVerses).text;
+      document.getElementById('verse-ot').innerText = rand(otVerses).text;
+      document.getElementById('verse-nt').innerText = rand(ntVerses).text;
+    }
 
-        document.getElementById('daily-reading-link').addEventListener('click', function() {
-            alert('Daily Reading Plan is under construction!');
-        });
-
-        document.getElementById('bride-ready-link').addEventListener('click', function() {
-            alert('Bride-Ready End Time Plan is under construction!');
-        });
-
-        // Initialize the app with a verse
-        updateVerseContent();
-        updateOldTestamentVerse();
-        updateNewTestamentVerse();
-
-        // Smooth scroll functionality for sections
-        function scrollToSection() {
-            document.getElementById('echoes-section').scrollIntoView({ behavior: 'smooth' });
-        }
-    </script>
+    refreshVerses();
+  </script>
 </body>
 </html>
