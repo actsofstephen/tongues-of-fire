@@ -10,151 +10,132 @@
     body {
       margin: 0;
       font-family: 'Space Mono', monospace;
-      background-image: url('1ECDBEF6-9647-454A-8A1D-BAE2B0A97C10.png');
+      background: url('background.png') no-repeat center center fixed;
       background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
       color: #000;
     }
-
     header {
+      padding: 30px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 30px;
       flex-wrap: wrap;
     }
-
     .title {
       font-family: 'Parisienne', cursive;
       font-size: 3rem;
       color: #fff;
       text-shadow: 2px 2px 6px #8b5e34;
     }
-
     .scroll-btn {
-      background-color: #8b5e34;
-      border: none;
-      border-radius: 50px;
+      background-image: linear-gradient(to right, #b87b3c, #8b5e34);
+      border: 2px solid #5a3d1c;
+      border-radius: 15px;
       padding: 10px 20px;
-      color: white;
-      font-size: 1rem;
       font-family: 'Space Mono', monospace;
+      color: white;
       cursor: pointer;
     }
-
     .dropdown {
       position: relative;
     }
-
     .dropdown-content {
       display: none;
       position: absolute;
-      background-color: white;
-      border-radius: 5px;
-      min-width: 250px;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      right: 0;
+      background-color: #fff;
+      min-width: 240px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
       z-index: 1;
-      top: 45px;
+      border-radius: 6px;
     }
-
     .dropdown-content a {
+      color: #000;
       padding: 12px 16px;
-      display: block;
-      color: black;
       text-decoration: none;
+      display: block;
       font-family: 'Space Mono', monospace;
     }
-
+    .dropdown-content a:hover {
+      background-color: #eee;
+    }
     .dropdown:hover .dropdown-content {
       display: block;
     }
-
     .notebook-paper {
-      background-color: rgba(255, 255, 255, 0.9);
-      background-image: linear-gradient(to bottom, #dcdcdc 1px, transparent 1px);
-      background-size: 100% 24px;
-      padding: 30px;
+      background-color: rgba(255, 255, 255, 0.94);
+      background-image: linear-gradient(to bottom, #c9d2e1 1px, transparent 1px);
+      background-size: 100% 25px;
+      padding: 40px;
       margin: 40px auto;
       width: 90%;
-      max-width: 800px;
-      border: 2px solid #ccc;
-      border-radius: 8px;
-      position: relative;
+      max-width: 900px;
+      border-radius: 10px;
+      border: 1px solid #aaa;
       font-family: 'Parisienne', cursive;
       font-size: 2rem;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
     }
-
-    .tool-results {
-      font-size: 1rem;
-      background: rgba(255, 255, 255, 0.95);
-      padding: 20px;
-      margin-top: 20px;
+    .verse-reference {
+      text-align: right;
       font-family: 'Space Mono', monospace;
-      border-left: 5px solid #8b5e34;
+      font-size: 1.2rem;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
   <header>
     <div class="title">Tongues of Fire</div>
-    <button class="scroll-btn" onclick="refreshVerses()">Speak, Lord</button>
-
+    <button class="scroll-btn" onclick="location.reload()">📜 Speak, Lord</button>
     <div class="dropdown">
       <button class="scroll-btn">Tools</button>
       <div class="dropdown-content">
-        <a href="#tool-random">Random Verse</a>
-        <a href="#tool-chapter">Random Chapter Generator</a>
-        <a href="#tool-book">Random Book Generator</a>
-        <a href="#tool-daily">Daily Reading Plan</a>
-        <a href="#tool-bride">Bride-Ready End Time Plan</a>
+        <a href="chapter.html">Random Chapter Generator</a>
+        <a href="book.html">Random Book Generator</a>
+        <a href="daily.html">Daily Reading Plan</a>
+        <a href="bride.html">Bride-Ready End Time Plan</a>
       </div>
     </div>
   </header>
 
-  <section class="notebook-paper" id="echoes">
-    <strong>Echoes from the Throne</strong><br/>
-    <span id="verse-main"></span>
+  <section class="notebook-paper">
+    <div id="main-verse"></div>
+    <div class="verse-reference" id="main-ref"></div>
   </section>
 
-  <section class="notebook-paper" id="ot-word">
+  <section class="notebook-paper">
     <strong>Thus Says the LORD: †Word from OT</strong><br/>
-    <span id="verse-ot"></span>
+    <div id="ot-verse"></div>
+    <div class="verse-reference" id="ot-ref"></div>
   </section>
 
-  <section class="notebook-paper" id="nt-word">
+  <section class="notebook-paper">
     <strong>From the Upper Room: †Word from NT</strong><br/>
-    <span id="verse-nt"></span>
+    <div id="nt-verse"></div>
+    <div class="verse-reference" id="nt-ref"></div>
   </section>
 
-  <section id="tool-results" class="tool-results">
-    <h3>Tool Results:</h3>
-    <div id="tool-random"><strong>Random Verse:</strong> Isaiah 9:6 – “For to us a child is born, to us a son is given; and the government will be on his shoulders.”</div><br/>
-    <div id="tool-chapter"><strong>Random Chapter Generator:</strong> Hebrews Chapter 105 (simulated)</div><br/>
-    <div id="tool-book"><strong>Random Book Generator:</strong> Ecclesiastes (random selection)</div><br/>
-    <div id="tool-daily"><strong>Daily Reading Plan:</strong> Custom daily reading plans carefully handpicked</div><br/>
-    <div id="tool-bride"><strong>Bride-Ready End Time Reading Plan:</strong> Custom bride-ready reading plans for verses submitted</div>
-  </section>
-
+  <script src="verses_data.js"></script>
   <script>
-    function refreshVerses() {
-      const allVerses = [
-        { text: '“For to us a child is born, to us a son is given; and the government will be on his shoulders.”', ref: 'Isaiah 9:6' },
-        { text: '“In the beginning God created the heavens and the earth.”', ref: 'Genesis 1:1' },
-        { text: '“For God so loved the world that He gave His only begotten Son...”', ref: 'John 3:16' }
-      ];
-
-      const otVerses = allVerses.filter(v => v.ref.includes('Genesis') || v.ref.includes('Isaiah'));
-      const ntVerses = allVerses.filter(v => v.ref.includes('John'));
-
-      const rand = arr => arr[Math.floor(Math.random() * arr.length)];
-
-      document.getElementById('verse-main').innerText = rand(allVerses).text;
-      document.getElementById('verse-ot').innerText = rand(otVerses).text;
-      document.getElementById('verse-nt').innerText = rand(ntVerses).text;
+    function getRandom(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
     }
 
-    refreshVerses();
+    window.onload = function() {
+      const main = getRandom(VERSE_DATA.all);
+      const ot = getRandom(VERSE_DATA.ot);
+      const nt = getRandom(VERSE_DATA.nt);
+
+      document.getElementById('main-verse').innerText = `"${main.text}"`;
+      document.getElementById('main-ref').innerText = main.reference;
+
+      document.getElementById('ot-verse').innerText = `"${ot.text}"`;
+      document.getElementById('ot-ref').innerText = ot.reference;
+
+      document.getElementById('nt-verse').innerText = `"${nt.text}"`;
+      document.getElementById('nt-ref').innerText = nt.reference;
+    };
   </script>
 </body>
 </html>
