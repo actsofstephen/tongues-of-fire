@@ -1,0 +1,215 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tongues of Fire: Christian Devotional App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Space+Mono&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Space Mono', monospace;
+            background-image: url('C7750949-F102-4230-A371-6A566FB7BC4A.png');
+            background-size: cover;
+            background-position: center center;
+            color: #333;
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .dropdown-btn {
+            background-color: #8b5e34;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            position: absolute;
+            left: 20px;
+            top: 60px;
+            z-index: 10;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            min-width: 250px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            padding: 5px 0;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: rgba(0,0,0,0.05);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .verse-text {
+            font-family: 'Parisienne', cursive;
+            line-height: 1.6;
+            font-size: 2rem;
+        }
+
+        .section-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            scroll-snap-align: start;
+        }
+
+        .scroll-container {
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+            height: 100vh;
+        }
+
+        .scroll-btn {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #8b5e34;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+
+        .scroll-btn:hover {
+            background-color: #d4a357;
+            transform: translateX(-50%) translateY(-5px);
+        }
+
+        .scroll-icon {
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            display: inline-block;
+            padding: 5px;
+            transform: rotate(45deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <header class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-white">Tongues of Fire</h1>
+            <button class="dropdown-btn">Speak, Lord <span class="scroll-icon"></span></button>
+            <div class="dropdown-content">
+                <a href="#" id="random-chapter-link">Random Chapter Generator</a>
+                <a href="#" id="random-book-link">Random Book Generator</a>
+                <a href="#" id="daily-reading-link">Daily Reading Plan</a>
+                <a href="#" id="bride-ready-link">Bride-Ready End Time Plan</a>
+            </div>
+        </header>
+
+        <main class="scroll-container">
+            <!-- Echoes from the Throne -->
+            <section class="section-container" id="echoes-section">
+                <h2 class="verse-text">Today's Verse</h2>
+                <div id="verse-content" class="verse-text"></div>
+            </section>
+
+            <!-- Thus Says the LORD: Word from OT -->
+            <section class="section-container" id="ot-section">
+                <h2 class="verse-text">Thus Says the LORD: †Word from OT</h2>
+                <div id="ot-verse" class="verse-text"></div>
+            </section>
+
+            <!-- From the Upper Room: Word from NT -->
+            <section class="section-container" id="nt-section">
+                <h2 class="verse-text">From the Upper Room: †Word from NT</h2>
+                <div id="nt-verse" class="verse-text"></div>
+            </section>
+        </main>
+
+        <button class="scroll-btn" onclick="scrollToSection()">Scroll Down</button>
+    </div>
+
+    <script>
+        // Helper functions for each tool
+        function getRandomVerse() {
+            return {
+                reference: 'Isaiah 9:6',
+                text: '“For to us a child is born, to us a son is given; and the government will be on his shoulders.”'
+            };
+        }
+
+        function getRandomOldTestamentVerse() {
+            return {
+                reference: 'Genesis 1:1',
+                text: '“In the beginning, God created the heavens and the earth.”'
+            };
+        }
+
+        function getRandomNewTestamentVerse() {
+            return {
+                reference: 'John 3:16',
+                text: '“For God so loved the world that he gave his only begotten Son, that whoever believes in him should not perish but have eternal life.”'
+            };
+        }
+
+        function updateVerseContent() {
+            const verse = getRandomVerse();
+            document.getElementById('verse-content').innerHTML = `${verse.text} - <strong>${verse.reference}</strong>`;
+        }
+
+        function updateOldTestamentVerse() {
+            const verse = getRandomOldTestamentVerse();
+            document.getElementById('ot-verse').innerHTML = `${verse.text} - <strong>${verse.reference}</strong>`;
+        }
+
+        function updateNewTestamentVerse() {
+            const verse = getRandomNewTestamentVerse();
+            document.getElementById('nt-verse').innerHTML = `${verse.text} - <strong>${verse.reference}</strong>`;
+        }
+
+        // Event Listeners for dropdown tools
+        document.getElementById('random-chapter-link').addEventListener('click', function() {
+            alert('Random Chapter Generator is under construction!');
+        });
+
+        document.getElementById('random-book-link').addEventListener('click', function() {
+            alert('Random Book Generator is under construction!');
+        });
+
+        document.getElementById('daily-reading-link').addEventListener('click', function() {
+            alert('Daily Reading Plan is under construction!');
+        });
+
+        document.getElementById('bride-ready-link').addEventListener('click', function() {
+            alert('Bride-Ready End Time Plan is under construction!');
+        });
+
+        // Initialize the app with a verse
+        updateVerseContent();
+        updateOldTestamentVerse();
+        updateNewTestamentVerse();
+
+        // Smooth scroll functionality for sections
+        function scrollToSection() {
+            document.getElementById('echoes-section').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
